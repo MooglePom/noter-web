@@ -1,45 +1,45 @@
-import React from "react";
+import React, { useState } from "react";
 import { List, Row, Col, Icon } from "antd";
 import moment from "moment";
 
-export default ({ note }) => (
-  <List.Item style={{ display: "block" }}>
-    <Row>
-      <Col xs={22}>
-        <Row style={{ marginBottom: "5px" }}>
-          <Col xs={24}>
-            <strong>{note.title}</strong>
-            <span style={{ float: "right" }}>
-              Created <strong>{moment(note.createdAt).from()}</strong>
-            </span>
-          </Col>
-        </Row>
-        <Row>
-          <Col
+export default ({ note, noteClicked }) => {
+  const [hovered, setHovered] = useState(false);
+
+  return (
+    <List.Item
+      onClick={() => noteClicked(note._id)}
+      style={{
+        display: "block",
+        backgroundColor: hovered ? "#efefef" : "white"
+      }}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+    >
+      <Row>
+        <Col xs={22}>
+          <Row>
+            <Col xs={24}>
+              <strong style={{ fontSize: "20px" }}>{note.title}</strong>
+              <br />
+              <span style={{ color: "#aaa" }}>
+                Created <strong>{moment(note.createdAt).from()}</strong>
+              </span>
+            </Col>
+          </Row>
+        </Col>
+        <Col xs={2}>
+          <Icon
             style={{
-              whiteSpace: "nowrap",
-              overflow: "hidden",
-              textOverflow: "ellipsis",
-              color: "#aaa"
+              textAlign: "right",
+              marginRight: "auto",
+              marginLeft: "auto",
+              display: "block",
+              marginTop: "3px"
             }}
-            xs={24}
-          >
-            {note.description}
-          </Col>
-        </Row>
-      </Col>
-      <Col xs={2}>
-        <Icon
-          style={{
-            textAlign: "right",
-            marginRight: "auto",
-            marginLeft: "auto",
-            display: "block",
-            marginTop: "3px"
-          }}
-          type="right"
-        />
-      </Col>
-    </Row>
-  </List.Item>
-);
+            type="right"
+          />
+        </Col>
+      </Row>
+    </List.Item>
+  );
+};
