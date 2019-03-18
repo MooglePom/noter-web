@@ -5,6 +5,8 @@ import NoteEditorLayout from "./note_editor_layout";
 import NoteEditorButtons from "./note_editor_buttons";
 import NoteEditorTitleField from "./note_editor_title_field";
 import NoteEditorDescriptionField from "./note_editor_description_field";
+import NoteEditorSharing from "./note_editor_sharing_editor";
+import ErrorDisplay from "./error_display";
 
 export default class NoteEditor extends Component {
   constructor() {
@@ -139,7 +141,7 @@ export default class NoteEditor extends Component {
   }
 
   render() {
-    const { note } = this.state;
+    const { note, errors } = this.state;
     return (
       <NoteEditorLayout>
         <Row>
@@ -150,6 +152,8 @@ export default class NoteEditor extends Component {
             />
           </Col>
           <Col xs={2}>
+            <ErrorDisplay errors={errors} />
+            <NoteEditorSharing note={note} />
             <NoteEditorButtons
               isRecycled={note.recycled}
               saveClicked={() => this.saveClicked()}

@@ -5,6 +5,17 @@ import moment from "moment";
 export default ({ note, noteClicked }) => {
   const [hovered, setHovered] = useState(false);
 
+  const sharedWithLabel = note => {
+    if (note.sharedWith && note.sharedWith.length > 0) {
+      const numberOfShared = note.sharedWith.length;
+      if (numberOfShared > 1) {
+        return `Shared with ${numberOfShared} Users`;
+      }
+      return `Shared with ${numberOfShared} User`;
+    }
+    return "";
+  };
+
   return (
     <List.Item
       onClick={() => noteClicked(note._id)}
@@ -23,6 +34,9 @@ export default ({ note, noteClicked }) => {
               <br />
               <span style={{ color: "#aaa" }}>
                 Created <strong>{moment(note.createdAt).from()}</strong>
+              </span>
+              <span style={{ marginLeft: "2em" }}>
+                <small>{sharedWithLabel(note)}</small>
               </span>
             </Col>
           </Row>

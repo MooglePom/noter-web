@@ -4,7 +4,8 @@ import { Alert } from "antd";
 export default ({ errors }) => {
   return (
     <div>
-      {errors.length > 0 &&
+      {errors &&
+        errors.length > 0 &&
         errors.map(error => (
           <Alert
             type="warning"
